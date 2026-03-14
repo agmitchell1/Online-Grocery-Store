@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to Our Supermarket</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">    
+</head>
+<body>
+
+<h1>Welcome to Nanjumi</h1>
+
+<nav class="navbar">
+  <!-- LEFT SIDE -->
+  <div class="nav-left">
+    <a href="/">Home</a>
+    <a href="/shop">Shop</a>
+    <a href="/about">About</a>
+
+    {% if logged_in and role == "customer" %}
+      <a href="/favorites">Favorites</a>
+      <a href="/cart">Cart</a>
+    {% endif %}
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="nav-right">
+    {% if not logged_in %}
+      <a href="/login">Login</a>
+    {% else %}
+      {% if role == "manager" %}
+        <a href="/manager">Manager</a>
+      {% endif %}
+      <a href="/logout">Logout</a>
+    {% endif %}
+  </div>
+</nav>
+
+
+<p>
+    Your local online supermarket for fresh fruits, vegetables, and meat. <br> Because Quality Is a Choice. <br> <br> Please log in or create an account to start shopping.
+
+</p>
+
+<div style="text-align:center; margin: 30px 0;">
+    <img
+      src="https://images.pexels.com/photos/2733918/pexels-photo-2733918.jpeg?cs=srgb&dl=pexels-cenali-2733918.jpg&fm=jpg"
+      alt="Fresh groceries"
+      style="max-width:80%; border-radius:10px;">
+</div>
+
+</body>
+</html>

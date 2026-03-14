@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Thank You</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h1>Welcome to Nanjumi</h1>
+
+<nav class="navbar">
+  <!-- LEFT SIDE -->
+  <div class="nav-left">
+    <a href="/">Home</a>
+    <a href="/shop">Shop</a>
+    <a href="/about">About</a>
+
+    {% if logged_in %}
+      <a href="/favorites">Favorites</a>
+      <a href="/cart">Cart</a>
+    {% endif %}
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="nav-right">
+    {% if not logged_in %}
+      <a href="/login">Login</a>
+    {% else %}
+      <a href="/logout">Logout</a>
+    {% endif %}
+  </div>
+</nav>
+
+<h2>Thank you for shopping with us ♡</h2>
+
+<p>Your order has been successfully placed.</p>
+
+<h2>Order summary</h2>
+
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Weight</th>
+    <th>Quantity</th>
+    <th>Price</th>
+    <th>Total</th>
+  </tr>
+
+  {% for item in order %}
+  <tr>
+    <td>{{ item.product_name }}</td>
+    <td>{{ item.weight }}</td>
+    <td>{{ item.quantity }}</td>
+    <td>€{{ item.price }}</td>
+    <td>€{{ item.line_total }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<h3>Total paid: €{{ total }}</h3>
+
+<p>We appreciate your trust in Nanjumi.</p>
+
+<a href="/shop"><button>Continue shopping</button></a>
+
+</body>
+</html>

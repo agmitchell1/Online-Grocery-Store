@@ -1,0 +1,269 @@
+/* 1) Base / Layout*/
+body {
+  background: #f7f7f5;
+  color: #1a1a1a;
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px 40px;
+}
+
+/* Headings */
+h1 {
+  margin: 22px 0 10px;
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: #1f3d2b;
+}
+
+h2 {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  font-size: 32px;
+  font-weight: 600;
+  color: #3a6b4f;
+}
+
+h3 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+
+/* 2) Links */
+a {
+  color: #1f3d2b;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+
+/* 3) Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 14px 24px;
+  background-color: #1f3d2b;
+
+  border-top: 2px solid #000;
+  border-bottom: 2px solid #000;
+}
+
+/* Left/right link spacing */
+.nav-left,
+.nav-right {
+  display: flex;
+  gap: 20px;
+}
+
+/* Navbar links */
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.navbar a:hover {
+  color: #c9e4ca;
+  text-decoration: none;
+}
+
+
+/* 4) Buttons (general) */
+button {
+  background-color: #1f3d2b;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button:hover {
+  background-color: #2b5a3d;
+}
+
+
+/* 5) Tables (Manager / Cart / Favorites) */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 15px;
+  background: white;
+}
+
+th {
+  background-color: #1f3d2b;
+  color: white;
+}
+
+td, th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+
+/* 6) Product Cards (Shop)*/
+.product-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: white;
+  border: 1px solid #e8e8e8;
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin: 12px 0;
+
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.product-name {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.product-meta {
+  font-size: 15px;
+  color: #444;
+}
+
+.product-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.inline-form {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+}
+
+
+/* 7) Badges */
+.badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.badge-in {
+  background: #e6f3ea;
+  color: #1f3d2b;
+}
+
+.badge-out {
+  background: #fde8e8;
+  color: #8a1f1f;
+}
+
+
+/* 8) Inputs */
+.qty-input {
+  width: 62px;
+  padding: 6px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+
+/* 9) Buttons (special) */
+.btn-primary {
+  background: #1f3d2b;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.btn-primary:hover {
+  background: #2b5a3d;
+}
+
+/* Cart action buttons */
+.cart-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-secondary {
+  background: #3a6b4f;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: #2b5a3d;
+}
+
+.btn-danger {
+  background: #8a1f1f;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-danger:hover {
+  background: #a52a2a;
+}
+
+
+/* 10) Favorites Heart Button */
+.heart-btn {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+
+  font-size: 20px;
+  line-height: 1;
+
+  color: #1f3d2b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: transform 0.1s ease, border-color 0.1s ease;
+}
+
+.heart-btn:hover {
+  border-color: #c9c9c9;
+  transform: scale(1.05);
+}
+
+/* Selected (favorited) */
+.heart-btn.heart-selected {
+  background: #e6f0eb;
+  border-color: #1f3d2b;
+  color: #1f3d2b;
+}

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Cart</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">   
+</head>
+<body>
+
+<h1>Welcome to Nanjumi</h1>
+
+<nav class="navbar">
+  <!-- LEFT SIDE -->
+  <div class="nav-left">
+    <a href="/">Home</a>
+    <a href="/shop">Shop</a>
+    <a href="/about">About</a>
+
+    {% if logged_in and role == "customer" %}
+      <a href="/favorites">Favorites</a>
+      <a href="/cart">Cart</a>
+    {% endif %}
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="nav-right">
+    {% if not logged_in %}
+      <a href="/login">Login</a>
+    {% else %}
+      <a href="/logout">Logout</a>
+    {% endif %}
+  </div>
+</nav>
+
+<h2>Your Cart</h2>
+
+{% if cart_items|length == 0 %}
+  <p>Your cart is empty.</p>
+{% else %}
+  <table>
+    <tr>
+      <th>Product</th>
+      <th>Weight</th>
+      <th>Qty</th>
+      <th>Price</th>
+      <th>Line total</th>
+      <th>Action</th>
+    </tr>
+
+    {% for item in cart_items %}
+    <tr>
+      <td>{{ item.product_name }}</td>
+      <td>{{ item.weight }}</td>
+      <td>{{ item.quantity }}</td>
+      <td>€{{ item.price }}</td>
+      <td>€{{ item.line_total }}</td>
+      <td class="cart-actions">
+
+        <!-- Remove ONE -->
+        <form method="POST" action="/cart/remove" class="inline-form">
+          <input type="hidden" name="product_name" value="{{ item.product_name }}">
+          <input type="hidden" name="mode" value="one">
+          <button type="submit" class="btn-secondary">−1</button>
+        </form>
+
+        <!-- Remove ALL -->
+        <form method="POST" action="/cart/remove" class="inline-form">
+          <input type="hidden" name="product_name" value="{{ item.product_name }}">
+          <input type="hidden" name="mode" value="all">
+          <button type="submit" class="btn-danger">Delete</button>
+        </form>
+
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <h3>Total: €{{ total }}</h3>
+
+  <form method="POST" action="/checkout">
+    <button type="submit" class="btn-primary">Checkout</button>
+  </form>
+{% endif %}
+
+<p><a href="/shop">← Continue shopping</a></p>
+
+</body>
+</html>

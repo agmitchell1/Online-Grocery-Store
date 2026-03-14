@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shop</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h1>Welcome to Nanjumi</h1>
+
+<nav class="navbar">
+  <!-- LEFT -->
+  <div class="nav-left">
+    <a href="/">Home</a>
+    <a href="/shop">Shop</a>
+    <a href="/about">About</a>
+
+    {% if logged_in and role == "customer" %}
+      <a href="/favorites">Favorites</a>
+      <a href="/cart">Cart</a>
+    {% endif %}
+  </div>
+
+  <!-- RIGHT -->
+  <div class="nav-right">
+    {% if not logged_in %}
+      <a href="/login">Login</a>
+    {% else %}
+      {% if role == "manager" %}
+        <a href="/manager">Manager</a>
+      {% endif %}
+      <a href="/logout">Logout</a>
+    {% endif %}
+  </div>
+</nav>
+<h2>Shop</h2>
+<h3>Fruits & Vegetables</h3>
+
+{% for product in fruits_veg %}
+  {% set maxed = product.in_cart is defined and product.in_cart >= product.stock %}
+  <div class="product-card">
+  <div class="product-info">
+    <div class="product-name">{{ product.name }}</div>
+    <div class="product-meta">
+      {{ product.weight }} · €{{ product.price }} ·
+      {% if product.stock <= 0 or product.status == "Out of stock" or maxed %}
+        <span class="badge badge-out">Out of stock</span>
+      {% else %}
+        <span class="badge badge-in">Available</span>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="product-actions">
+    {% if logged_in and role == "customer" %}
+      {% if product.is_favorite %}
+        <form method="POST" action="/favorites/remove" class="inline-form">
+          <input type="hidden" name="product_name" value="{{ product.name }}">
+          <button type="submit" class="heart-btn heart-selected" title="Remove from favorites">♥</button>
+        </form>
+      {% else %}
+        <form method="POST" action="/favorites/add" class="inline-form">
+          <input type="hidden" name="product_name" value="{{ product.name }}">
+          <button type="submit" class="heart-btn" title="Add to favorites">♡</button>
+        </form>
+      {% endif %}
+    {% endif %}
+
+    {% if logged_in and role == "customer"
+          and product.status == "Available"
+          and product.stock > (product.in_cart or 0) %}
+      <form method="POST" action="/cart/add" class="inline-form">
+        <input type="hidden" name="product_name" value="{{ product.name }}">
+        <input class="qty-input" type="number" name="quantity" min="1" value="1"
+               max="{{ product.stock - (product.in_cart or 0) }}">
+        <button type="submit" class="btn-primary">Add to cart</button>
+      </form>
+    {% endif %}
+  </div>
+</div>
+{% endfor %}
+
+<h3>Meat</h3>
+
+{% for product in meat %}
+  {% set maxed = product.in_cart is defined and product.in_cart >= product.stock %}
+  <div class="product-card">
+  <div class="product-info">
+    <div class="product-name">{{ product.name }}</div>
+    <div class="product-meta">
+      {{ product.weight }} · €{{ product.price }} ·
+      {% if product.stock <= 0 or product.status == "Out of stock" or maxed %}
+        <span class="badge badge-out">Out of stock</span>
+      {% else %}
+        <span class="badge badge-in">Available</span>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="product-actions">
+    {% if logged_in and role == "customer" %}
+      {% if product.is_favorite %}
+        <form method="POST" action="/favorites/remove" class="inline-form">
+          <input type="hidden" name="product_name" value="{{ product.name }}">
+          <button type="submit" class="heart-btn heart-selected" title="Remove from favorites">♥</button>
+        </form>
+      {% else %}
+        <form method="POST" action="/favorites/add" class="inline-form">
+          <input type="hidden" name="product_name" value="{{ product.name }}">
+          <button type="submit" class="heart-btn" title="Add to favorites">♡</button>
+        </form>
+      {% endif %}
+    {% endif %}
+
+    {% if logged_in and role == "customer"
+          and product.status == "Available"
+          and product.stock > (product.in_cart or 0) %}
+      <form method="POST" action="/cart/add" class="inline-form">
+        <input type="hidden" name="product_name" value="{{ product.name }}">
+        <input class="qty-input" type="number" name="quantity" min="1" value="1"
+               max="{{ product.stock - (product.in_cart or 0) }}">
+        <button type="submit" class="btn-primary">Add to cart</button>
+      </form>
+    {% endif %}
+  </div>
+</div>
+{% endfor %}
+
+</body>
+</html>

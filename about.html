@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>About Us</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h1>Welcome to Nanjumi</h1>
+
+<nav class="navbar">
+  <!-- LEFT SIDE -->
+  <div class="nav-left">
+    <a href="/">Home</a>
+    <a href="/shop">Shop</a>
+    <a href="/about">About</a>
+
+    {% if logged_in and role == "customer" %}
+      <a href="/favorites">Favorites</a>
+      <a href="/cart">Cart</a>
+    {% endif %}
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="nav-right">
+    {% if not logged_in %}
+      <a href="/login">Login</a>
+    {% else %}
+      {% if role == "manager" %}
+        <a href="/manager">Manager</a>
+      {% endif %}
+      <a href="/logout">Logout</a>
+    {% endif %}
+  </div>
+</nav>
+
+<h2>About Nanjumi</h2>
+
+<p>
+  Nanjumi is a premium online supermarket designed to make everyday grocery shopping
+  simple, elegant, and reliable. We focus on delivering fresh produce, quality meat,
+  and an intuitive shopping experience.
+</p>
+
+<h2>Our Story</h2>
+
+<p>
+  This project was created as part of a university assignment to demonstrate
+  full-stack web development using Python, Flask, HTML, CSS, and CSV-based data storage.
+</p>
+
+<h2>Created By</h2>
+
+<ul>
+  <li><strong>Anna Mitchell (i6386985)</strong></li>
+  <li><strong>Boniface Duron (i6385375)</strong></li>
+  <li><strong>Nacho Juvé Aguilera (i6383664)</strong></li>
+</ul>
+
+<p>
+  Thank you for visiting and choosing to shop at Nanjumi.
+</p>
+
+</body>
+</html>

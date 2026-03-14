@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Favorites</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h1>Welcome to Nanjumi</h1>
+
+<nav class="navbar">
+  <!-- LEFT SIDE -->
+  <div class="nav-left">
+    <a href="/">Home</a>
+    <a href="/shop">Shop</a>
+    <a href="/about">About</a>
+
+    {% if logged_in %}
+      <a href="/favorites">Favorites</a>
+      <a href="/cart">Cart</a>
+    {% endif %}
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="nav-right">
+    {% if not logged_in %}
+      <a href="/login">Login</a>
+    {% else %}
+      <a href="/logout">Logout</a>
+    {% endif %}
+  </div>
+</nav>
+
+<h2>Your Favorites</h2>
+
+{% if favorites|length == 0 %}
+  <p>You don’t have any favorites yet. Go to the shop and click ♡ to save products.</p>
+{% else %}
+  <table>
+    <tr>
+      <th>Category</th>
+      <th>Name</th>
+      <th>Weight</th>
+      <th>Price</th>
+      <th>Status</th>
+      <th>Remove</th>
+    </tr>
+
+    {% for p in favorites %}
+    <tr>
+      <td>{{ p.category }}</td>
+      <td>{{ p.name }}</td>
+      <td>{{ p.weight }}</td>
+      <td>€{{ p.price }}</td>
+      <td>{{ p.status }}</td>
+      <td>
+        <form method="POST" action="/favorites/remove">
+          <input type="hidden" name="product_name" value="{{ p.name }}">
+          <button type="submit">Remove</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endif %}
+
+</body>
+</html>
